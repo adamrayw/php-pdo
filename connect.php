@@ -10,14 +10,13 @@ function connect($host, $db, $user, $pass)
     $dsn = "mysql:host=$host;dbname=$db;charset=utf8";
 
     try {
-        $pdo = new PDO($dsn, $user, $pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // create new PDO object
+        $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-        if ($pdo) {
-            echo 'Connected to the $db database successfully!';
-        }
+        // return the PDO object
+        return $pdo;
     } catch (PDOException $e) {
-        echo $e->getMessage();
+        die($e->getMessage());
     }
 }
 
